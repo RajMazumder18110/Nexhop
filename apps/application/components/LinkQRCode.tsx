@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 /** @notice Library imports */
 import QRCodeStyling, {
   CornerDotType,
@@ -12,6 +12,7 @@ import QRCodeStyling, {
 } from "qr-code-styling";
 import { JSDOM } from "jsdom";
 import nodeCanvas from "canvas";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type LinkQRCodeProps = {
   shortUrl: string;
@@ -22,8 +23,8 @@ const getQRCodeOptions = (data: string) =>
     width: 200,
     height: 200,
     type: "svg" as DrawType,
-    jsdom: JSDOM,
-    nodeCanvas,
+    // jsdom: JSDOM,
+    // nodeCanvas,
     data: data,
     // image:
     margin: 0,
@@ -55,12 +56,19 @@ const getQRCodeOptions = (data: string) =>
     },
   }) satisfies Options;
 
-const LinkQRCode = async (props: LinkQRCodeProps) => {
-  const qrCode = new QRCodeStyling(getQRCodeOptions(props.shortUrl));
-  const buffer = await qrCode.getRawData("svg");
-  const svg = buffer?.toString();
+const LinkQRCode = (props: LinkQRCodeProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isUpdated, setIsUpdated] = useState(false);
 
-  return svg ? <div dangerouslySetInnerHTML={{ __html: svg }} /> : null;
+  useEffect(() => {
+    if (ref.current && !isUpdated) {
+      const qrCode = new QRCodeStyling(getQRCodeOptions(props.shortUrl));
+      qrCode.append(ref.current);
+      setIsUpdated(true);
+    }
+  }, []);
+
+  return <div ref={ref} />;
 };
 
 export default LinkQRCode;
