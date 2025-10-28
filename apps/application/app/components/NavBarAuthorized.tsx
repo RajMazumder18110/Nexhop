@@ -1,5 +1,6 @@
 /** @notice Library imports */
 import Link from "next/link";
+import { Suspense } from "react";
 /// Local imports
 import NavLinkCom from "./NavLinkCom";
 
@@ -33,7 +34,9 @@ const NavBarAuthorized = async () => {
       {/* Links part */}
       <div className="flex items-center justify-center gap-8">
         {links.map((link, idx) => (
-          <NavLinkCom key={idx} {...link} />
+          <Suspense>
+            <NavLinkCom key={idx} {...link} />
+          </Suspense>
         ))}
       </div>
 

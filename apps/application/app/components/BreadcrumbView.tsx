@@ -1,7 +1,7 @@
 "use client";
 /** @notice Library imports */
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 /// Local imports
 import {
   Breadcrumb,
@@ -21,7 +21,6 @@ import {
  */
 const BreadcrumbView = () => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   // Normalize: remove duplicate slashes and trailing slash (except root)
   const normalized =
@@ -43,10 +42,7 @@ const BreadcrumbView = () => {
         .replace(/[-_]+/g, " ")
         .replace(/\b\w/g, (c) => c.toUpperCase()); // Title case
 
-      const q =
-        isLast && searchParams?.toString() ? `?${searchParams.toString()}` : "";
-      const href = `${acc}${q}`;
-
+      const href = `${acc}`;
       return { href, label, isLast };
     });
   })();
