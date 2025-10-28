@@ -29,13 +29,6 @@ export const ShortedUrlRowSingleLoader = () => {
             size="icon"
             className="hover:text-highlight transition-colors duration-300"
           >
-            <Send />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hover:text-highlight transition-colors duration-300"
-          >
             <ScanQrCode />
           </Button>
           <div className="flex items-center gap-3"></div>

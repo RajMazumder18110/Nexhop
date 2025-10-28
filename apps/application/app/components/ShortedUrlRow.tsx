@@ -1,10 +1,22 @@
 /** @notice Library imports */
 import Link from "next/link";
-import { CalendarClock, ScanQrCode, Send } from "lucide-react";
+import { Suspense } from "react";
+import { CalendarClock, Download, ScanQrCode, X } from "lucide-react";
 /// Local imports
-import { Button } from "@/components/ui/button";
 import CopyToClip from "@/components/CopyToClip";
 import { Card, CardContent } from "@/components/ui/card";
+import LinkQRCode from "@/components/LinkQRCode";
+import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type ShortedUrlRowProps = {
   rowId: string;
@@ -20,8 +32,8 @@ export const ShortedUrlRow = ({
   createdAt,
 }: ShortedUrlRowProps) => {
   return (
-    <Card className="w-full hover:border-highlight/40 hover:scale-105 transition-all duration-300 ease-in-out">
-      <Link href={`/urls/${rowId}`}>
+    <Dialog>
+      <Card className="group w-full hover:border-highlight/40 hover:scale-105 transition-all duration-300 ease-in-out">
         <CardContent className="flex flex-col items-start justify-start gap-4">
           <div className="w-full flex items-center justify-between">
             {/* Link details */}
@@ -35,32 +47,91 @@ export const ShortedUrlRow = ({
             </div>
 
             {/* Link actions */}
-            <CopyToClip text={shortUrl} />
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:text-highlight transition-colors duration-300"
-            >
-              <Send />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:text-highlight transition-colors duration-300"
-            >
-              <ScanQrCode />
-            </Button>
-            <div className="flex items-center gap-3"></div>
+            <Suspense>
+              <CopyToClip text={shortUrl} />
+            </Suspense>
+
+            <DialogTrigger>
+              <div
+                className={cn(
+                  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+                  "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+                  "size-9"
+                )}
+              >
+                <ScanQrCode />
+              </div>
+            </DialogTrigger>
           </div>
 
-          <div className="w-full border-t border-slate-900 pt-2 flex items-center justify-start gap-2">
-            <CalendarClock className="text-slate-500 size-4" />
-            <p className="text-slate-500 text-xs md:text-sm font-medium">
-              {createdAt.toLocaleString()}
-            </p>
+          <div className="w-full border-t border-slate-900 pt-2 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <CalendarClock className="text-slate-500 size-4" />
+              <p className="text-slate-500 text-xs md:text-sm font-medium">
+                {createdAt.toLocaleString()}
+              </p>
+            </div>
+            <Link
+              href={`/urls/${rowId}`}
+              className="hidden text-sm hover:underline group-hover:block"
+            >
+              View
+            </Link>
           </div>
         </CardContent>
-      </Link>
-    </Card>
+      </Card>
+
+      <DialogContent className="pb-10" showCloseButton={false}>
+        <DialogClose className="absolute top-5 right-5">
+          <div
+            className={cn(
+              "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+              "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+              "size-7 rounded-full border-foreground"
+            )}
+          >
+            <X />
+          </div>
+        </DialogClose>
+        {/* <DrawerClose className="absolute top-10 right-10">
+          <div
+            className={cn(
+              "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+              "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+              "size-9 rounded-full border-foreground"
+            )}
+          >
+            <X />
+          </div>
+        </DrawerClose> */}
+        <DialogHeader className="flex items-center">
+          <DialogTitle className="font-medium text-xl md:text-3xl text-highlight">
+            <Link
+              href={`https://${shortUrl}`}
+              target="_blank"
+              className="hover:underline underline-offset-4 transition-all duration-300 ease-in-out"
+            >
+              {shortUrl}
+            </Link>
+          </DialogTitle>
+          <DialogDescription>{longUrl}</DialogDescription>
+        </DialogHeader>
+
+        <div className="flex flex-col gap-4 pt-6 items-center">
+          <Suspense>
+            <LinkQRCode shortUrl={shortUrl} />
+          </Suspense>
+
+          <div className="flex items-center gap-4">
+            <Suspense>
+              <CopyToClip text={shortUrl} iconClassName="size-5" />
+            </Suspense>
+            <Suspense>
+              <Download className="size-5" />
+            </Suspense>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };

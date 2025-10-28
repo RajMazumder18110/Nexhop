@@ -34,8 +34,8 @@ const NavBarAuthorized = async () => {
       {/* Links part */}
       <div className="flex items-center justify-center gap-8">
         {links.map((link, idx) => (
-          <Suspense>
-            <NavLinkCom key={idx} {...link} />
+          <Suspense key={idx}>
+            <NavLinkCom {...link} />
           </Suspense>
         ))}
       </div>
