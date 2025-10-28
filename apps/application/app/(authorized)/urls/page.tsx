@@ -6,7 +6,7 @@ import { PaginatedLinksCompartment } from "./compartments";
 
 const AuthorizedAllUrlsPage = () => {
   return (
-    <section className="py-4 w-full flex flex-col items-start gap-8">
+    <section className="w-full flex flex-col items-start gap-8">
       {/* All links */}
       <section className="w-full flex flex-col items-start gap-4">
         <div className="w-full flex flex-col items-start gap-1">

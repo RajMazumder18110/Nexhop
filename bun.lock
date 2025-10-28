@@ -9,13 +9,13 @@
         "typescript": "5.9.2",
       },
     },
-    "apps/web": {
+    "apps/application": {
       "name": "@nexhop/app",
       "version": "0.1.0",
       "dependencies": {
         "@radix-ui/react-select": "^2.2.6",
         "@radix-ui/react-separator": "^1.1.7",
-        "@radix-ui/react-slot": "^1.2.3",
+        "@radix-ui/react-slot": "",
         "@radix-ui/react-tooltip": "^1.2.8",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -121,7 +121,7 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@nexhop/app": ["@nexhop/app@workspace:apps/web"],
+    "@nexhop/app": ["@nexhop/app@workspace:apps/application"],
 
     "@nexhop/typescript-config": ["@nexhop/typescript-config@workspace:packages/typescript-config"],
 
