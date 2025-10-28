@@ -1,5 +1,5 @@
 {
-  "name": "Nexhop",
+  "name": "@nexhop/monorepo",
   "private": true,
   "scripts": {
     "build": "turbo run build",
