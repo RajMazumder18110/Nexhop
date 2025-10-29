@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import LinkDialogPopup from "@/components/LinkDialogPopup";
 
 type ShortedUrlRowProps = {
   rowId: string;
@@ -79,59 +80,13 @@ export const ShortedUrlRow = ({
             </Link>
           </div>
         </CardContent>
+        <LinkDialogPopup
+          shortUrl={shortUrl}
+          longUrl={longUrl}
+          qrWidth={200}
+          qrHeight={200}
+        />
       </Card>
-
-      <DialogContent className="pb-10" showCloseButton={false}>
-        <DialogClose className="absolute top-5 right-5">
-          <div
-            className={cn(
-              "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-              "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-              "size-7 rounded-full border-foreground"
-            )}
-          >
-            <X />
-          </div>
-        </DialogClose>
-        {/* <DrawerClose className="absolute top-10 right-10">
-          <div
-            className={cn(
-              "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-              "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-              "size-9 rounded-full border-foreground"
-            )}
-          >
-            <X />
-          </div>
-        </DrawerClose> */}
-        <DialogHeader className="flex items-center">
-          <DialogTitle className="font-medium text-xl md:text-3xl text-highlight">
-            <Link
-              href={`https://${shortUrl}`}
-              target="_blank"
-              className="hover:underline underline-offset-4 transition-all duration-300 ease-in-out"
-            >
-              {shortUrl}
-            </Link>
-          </DialogTitle>
-          <DialogDescription>{longUrl}</DialogDescription>
-        </DialogHeader>
-
-        <div className="flex flex-col gap-4 pt-6 items-center">
-          <Suspense>
-            <LinkQRCode shortUrl={shortUrl} />
-          </Suspense>
-
-          <div className="flex items-center gap-4">
-            <Suspense>
-              <CopyToClip text={shortUrl} iconClassName="size-5" />
-            </Suspense>
-            <Suspense>
-              <Download className="size-5" />
-            </Suspense>
-          </div>
-        </div>
-      </DialogContent>
     </Dialog>
   );
 };

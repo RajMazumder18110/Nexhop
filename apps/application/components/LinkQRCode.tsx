@@ -70,7 +70,14 @@ const LinkQRCode = (props: LinkQRCodeProps) => {
     }
   }, []);
 
-  return <div ref={ref} />;
+  useEffect(() => {
+    const qrs = document.getElementById("qr-code-popup");
+    if (qrs?.childNodes.length == 2) {
+      qrs.lastChild?.remove();
+    }
+  }, [isUpdated]);
+
+  return <div ref={ref} id="qr-code-popup" />;
 };
 
 export default LinkQRCode;
