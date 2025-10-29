@@ -10,18 +10,18 @@ import QRCodeStyling, {
   Options,
   TypeNumber,
 } from "qr-code-styling";
-import { JSDOM } from "jsdom";
-import nodeCanvas from "canvas";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type LinkQRCodeProps = {
   shortUrl: string;
+  width: number;
+  height: number;
 };
 
-const getQRCodeOptions = (data: string) =>
+const getQRCodeOptions = (data: string, width: number, height: number) =>
   ({
-    width: 200,
-    height: 200,
+    width,
+    height,
     type: "svg" as DrawType,
     // jsdom: JSDOM,
     // nodeCanvas,
@@ -62,7 +62,9 @@ const LinkQRCode = (props: LinkQRCodeProps) => {
 
   useEffect(() => {
     if (ref.current && !isUpdated) {
-      const qrCode = new QRCodeStyling(getQRCodeOptions(props.shortUrl));
+      const qrCode = new QRCodeStyling(
+        getQRCodeOptions(props.shortUrl, props.width, props.height)
+      );
       qrCode.append(ref.current);
       setIsUpdated(true);
     }

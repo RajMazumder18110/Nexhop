@@ -1,13 +1,5 @@
 {
   "name": "@nexhop/monorepo",
-  "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
-  },
   "devDependencies": {
     "@types/jsdom": "^27.0.0",
     "prettier": "^3.6.2",
@@ -18,12 +10,16 @@
     "node": ">=18"
   },
   "packageManager": "bun@1.3.1",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
-  ],
-  "dependencies": {
-    "canvas": "^3.2.0",
-    "jsdom": "^27.0.1"
-  }
+  ]
 }
