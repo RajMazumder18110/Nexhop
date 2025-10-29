@@ -4,12 +4,12 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const ChartLoader = () => {
   return (
-    <Card className="border-none">
+    <Card className="border-none w-full">
       <CardContent className="w-full h-[250px] flex flex-col justify-evenly gap-2">
         <div className="w-full h-[80%] flex items-center justify-center">
           <Skeleton className="w-full h-full bg-slate-900/40" />
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-8">
           {Array.from({ length: 10 }).map((_, index) => (
             <Skeleton
               key={index}

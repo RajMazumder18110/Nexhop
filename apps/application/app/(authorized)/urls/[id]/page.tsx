@@ -59,16 +59,6 @@ const AuthorizedSingleUrlsPage = async (props: PageProps<"/urls/[id]">) => {
                 </div>
               </CardContent>
             </Card>
-
-            <div className="">
-              <div className="flex flex-col items-start">
-                <h1 className="text-lg md:text-2xl font-semibold">Clicks</h1>
-                <p className="text-muted-foreground text-xs">
-                  Number of clicks this month.
-                </p>
-              </div>
-              <ChartLoader />
-            </div>
           </section>
         }
       >
