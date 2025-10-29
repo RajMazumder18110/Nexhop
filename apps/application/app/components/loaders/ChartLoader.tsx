@@ -2,7 +2,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
 
-export const MonthlyAnalyticsLoader = () => {
+const ChartLoader = () => {
   return (
     <Card className="border-none">
       <CardContent className="w-full h-[250px] flex flex-col justify-evenly gap-2">
@@ -21,3 +21,4 @@ export const MonthlyAnalyticsLoader = () => {
     </Card>
   );
 };
+export default ChartLoader;

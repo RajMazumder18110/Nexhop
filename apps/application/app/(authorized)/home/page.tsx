@@ -8,18 +8,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 /// Compartments contents
-import {
-  TopLinksContents,
-  LinksStatsContents,
-  MonthlyAnalyticsWrapper,
-} from "./compartments";
+import { TopLinksContents, LinksStatsContents } from "./compartments";
 /// Compartments loader
-import {
-  LinkStatsLoader,
-  MonthlyAnalyticsLoader,
-} from "./compartments/loaders";
+import { LinkStatsLoader } from "./compartments/loaders";
 import { Button } from "@/components/ui/button";
 import { ShortedUrlRowsLoader } from "@/app/components/loaders";
+import ChartLoader from "@/app/components/loaders/ChartLoader";
+import ClicksAnalytics from "@/app/components/ClicksAnalytics";
 
 const AuthorizedHomePage = () => {
   return (
@@ -40,8 +35,8 @@ const AuthorizedHomePage = () => {
           {/* Monthly Analytics */}
           <Tooltip>
             <TooltipTrigger className="w-full">
-              <Suspense fallback={<MonthlyAnalyticsLoader />}>
-                <MonthlyAnalyticsWrapper />
+              <Suspense fallback={<ChartLoader />}>
+                <ClicksAnalytics />
               </Suspense>
             </TooltipTrigger>
             <TooltipContent>Clicks</TooltipContent>
