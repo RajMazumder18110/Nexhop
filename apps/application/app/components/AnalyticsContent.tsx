@@ -30,7 +30,7 @@ export const MonthlyAnalytics = ({
 
   return (
     <Card className="w-full border-none">
-      <CardContent className="w-full h-[250px]">
+      <CardContent className="w-full h-[250px] px-0">
         <ChartContainer config={{}} className="aspect-auto h-full w-full">
           <AreaChart data={filteredData}>
             <defs>
